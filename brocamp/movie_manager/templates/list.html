@@ -1,0 +1,42 @@
+{% extends "blank_layout.html" %}
+{% load static %}
+{% block content %}
+<h1>List Movies</h1>
+
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Year</th>
+        <th>Description</th>
+        <th>edit/delete</th>
+    </tr>
+
+    {%for movie in movies%}
+    <tr>
+        <td>
+            {% if movie.poster %}
+                <img src="{{ movie.poster.url }}" alt="" height="100">
+            {% else %}
+                <p>No poster available</p>
+            {% endif %}
+        </td>   
+    <td>
+    <h3>{{movie.title}}</h3>
+    </td>
+    <td>    
+    <h3>Year: {{movie.year}}</h3>
+    </td>
+    <td>
+    <h3>{{movie.description}}</h3>
+    </td>
+    <td>
+    <a href="{% url 'edit' movie.id %}">edit</a>/<a href="{% url 'delete' movie.id %}">delete</a>
+    </td>
+    </tr>
+    {%endfor%}
+
+</table>
+
+{% endblock content %}
+
+

@@ -1,0 +1,12 @@
+
+{%for movie in movie_list%}
+
+<h3> Title: {{movie.title}}</h3>
+<h3> year: {{movie.year}}</h3>
+<h3> summary: {{movie.summary}}</h3>
+
+    {% if movie.success %}
+    <p> The movie was success at that time</p>
+    {% endif %}
+
+{%endfor%}
