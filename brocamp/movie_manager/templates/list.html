@@ -3,40 +3,34 @@
 {% block content %}
 <h1>List Movies</h1>
 
-<table>
+<table border="1" cellpadding="10">
     <tr>
+        <th>Poster</th>
         <th>Title</th>
         <th>Year</th>
         <th>Description</th>
-        <th>edit/delete</th>
+        <th>Edit/Delete</th>
     </tr>
 
-    {%for movie in movies%}
+    {% for movie in movies %}
     <tr>
         <td>
             {% if movie.poster %}
                 <img src="{{ movie.poster.url }}" alt="" height="100">
             {% else %}
-                <p>No poster available</p>
+                No poster available
             {% endif %}
-        </td>   
-    <td>
-    <h3>{{movie.title}}</h3>
-    </td>
-    <td>    
-    <h3>Year: {{movie.year}}</h3>
-    </td>
-    <td>
-    <h3>{{movie.description}}</h3>
-    </td>
-    <td>
-    <a href="{% url 'edit' movie.id %}">edit</a>/<a href="{% url 'delete' movie.id %}">delete</a>
-    </td>
+        </td>
+        <td>{{ movie.title }}</td>
+        <td>{{ movie.year }}</td>
+        <td>{{ movie.description }}</td>
+        <td>
+            <a href="{% url 'edit' movie.id %}">edit</a> /
+            <a href="{% url 'delete' movie.id %}">delete</a>
+        </td>
     </tr>
-    {%endfor%}
-
+    {% endfor %}
 </table>
 
 {% endblock content %}
-
 
