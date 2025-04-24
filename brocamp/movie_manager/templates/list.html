@@ -1,7 +1,11 @@
 {% extends "blank_layout.html" %}
 {% load static %}
 {% block content %}
-<h1>List Movies</h1>
+<h1>List Movies {{ visits }} times visited </h1>
+
+{% for movie_obj in recent_movies %}
+    <p>{{ movie_obj.title | upper}}</p>
+{% endfor %}
 
 <table border="1" cellpadding="10">
     <tr>

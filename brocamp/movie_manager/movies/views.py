@@ -18,8 +18,17 @@ def create(request):
     
 
 def list(request):
+    recent_visits = request.session.get('recent_visits',[])
+    count = request.session.get('count', 0)
+    count = int(count)
+    count +=1
+    request.session['count'] = count
+    recent_movie_set = Movieinfo.objects.filter(pk__in = recent_visits)
     movie_data = Movieinfo.objects.all()
-    return render(request, 'list.html', {'movies':movie_data})
+    response = render(request, 'list.html', {
+        'recent_movies':recent_movie_set,
+        'movies':movie_data,'visits':count})
+    return response
 
 def edit(request, pk):
     instance = Movieinfo.objects.get(pk=pk)
@@ -31,6 +40,10 @@ def edit(request, pk):
         else:
             print("Form errors:", frm.errors)  # Debugging
     else:
+        recent_visits = request.session.get("recent_visits",[])
+        recent_visits.insert(0,pk)
+        request.session['recent_visits'] = recent_visits
+
         frm = MovieForm(instance=instance)
     return render(request, 'create.html', {'frm': frm})
     
